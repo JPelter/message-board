@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run start --prefix message-board/frontend-react",
+            "name": "React Frontend",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "envFile": "${workspaceFolder}\\message-board\\python-flask\\src\\.env",
             "name": "Message Board API",
             "type": "python",

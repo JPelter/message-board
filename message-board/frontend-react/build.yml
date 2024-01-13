@@ -1,0 +1,28 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - feature/*
+    - main
+  paths:
+    include:
+    - frontend-react
+
+jobs:
+- job: BuildAndPush
+  displayName: Docker build and push
+  pool:
+    name: Azure Pipelines
+  steps:
+  - task: Docker@2
+    displayName: BuildAndPush
+    inputs:
+      command: buildAndPush
+      repository: jakepelter/message-board-python-flask
+      dockerfile: frontend-react/Dockerfile
+      containerRegistry: 'jakep-dockerhub'
+      tags: $(Build.BuildId)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: frontend-react/charts
+      artifactName: 'drop'

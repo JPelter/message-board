@@ -4,13 +4,17 @@ from os import environ
 
 # EXT IMPORTS
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import pyodbc
 from sqlalchemy.ext.automap import automap_base
 from waitress import serve
 
+
 app = Flask(__name__)
 app.logger.setLevel(logging.INFO)
+CORS(app, supports_credentials=True) # NO CORS PROBLEM CUZ NO COOKIES?
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc://{environ['SQL_SERVER_USERNAME']}:{environ['SQL_SERVER_PASSWORD']}@{environ['SQL_SERVER_HOST']}/{environ['SQL_SERVER_DB']}?driver=ODBC+Driver+17+for+SQL+Server"
 db = SQLAlchemy(app)
 db_Base = automap_base()
