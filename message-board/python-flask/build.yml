@@ -1,0 +1,39 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - feature/*
+    - main
+  paths:
+    include:
+    - message-board/python-flask
+
+jobs:
+- job: Build
+  displayName: Docker build and push
+  pool:
+    name: Azure Pipelines
+  steps:
+
+  - task: Docker@2
+    displayName: Build
+    inputs:
+      command: build
+      repository: jakepelter/message-board-python-flask
+      dockerfile: message-board/python-flask/Dockerfile
+      tags: |
+        $(Build.BuildId)
+        
+  - task: Docker@2
+    displayName: Push
+    inputs:
+      command: push
+      repository: jakepelter/message-board-python-flask
+      containerRegistry: 'jakep-dockerhub'
+      tags: |
+        $(Build.BuildId)
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: message-board/python-flask/charts
+      artifactName: 'drop'
