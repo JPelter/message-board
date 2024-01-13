@@ -12,7 +12,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: {{ .Release.Name }}
-          image: docker.io/jakepelter/python-flask-sqlserver-liquibase:{{ .Values.imageTag }}
+          image: docker.io/jakepelter/message-board-liquibase:{{ .Values.imageTag }}
           command: ["liquibase", "update", "--changeLogFile=changelog.xml", "--url=jdbc:sqlserver://$(SQL_SERVER_HOST):1433;databaseName=$(SQL_SERVER_DB);encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"]
           imagePullPolicy: IfNotPresent
           env:
