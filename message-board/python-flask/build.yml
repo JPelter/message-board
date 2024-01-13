@@ -20,7 +20,7 @@ jobs:
     inputs:
       command: build
       repository: jakepelter/message-board-python-flask
-      dockerfile: message-board/python-flask/Dockerfile
+      dockerfile: message-board/python-flask/src/Dockerfile
       tags: |
         $(Build.BuildId)
         
