@@ -23,22 +23,22 @@ spec:
         - name: SQL_SERVER_USERNAME
           valueFrom:
             secretKeyRef:
-              name: az-offer-db
+              name: playbook-message-board-db
               key: USER
         - name: SQL_SERVER_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: az-offer-db
+              name: playbook-message-board-db
               key: PASS
         - name: SQL_SERVER_HOST
           valueFrom:
             secretKeyRef:
-              name: az-offer-db
+              name: playbook-message-board-db
               key: HOST
         - name: SQL_SERVER_DB
           valueFrom:
             secretKeyRef:
-              name: az-offer-db
+              name: playbook-message-board-db
               key: DB
 ---
 apiVersion: v1

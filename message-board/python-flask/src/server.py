@@ -25,7 +25,6 @@ with app.app_context():
 
 MESSAGE = db_Base.classes.MESSAGE
 
-
 @app.route('/api/message', methods=['GET'])
 def get_messages():
     app.logger.info('Getting messages!')
