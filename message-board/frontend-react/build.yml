@@ -6,7 +6,7 @@ trigger:
     - main
   paths:
     include:
-    - frontend-react
+    - message-board/frontend-react
 
 jobs:
 - job: BuildAndPush
@@ -18,11 +18,11 @@ jobs:
     displayName: BuildAndPush
     inputs:
       command: buildAndPush
-      repository: jakepelter/message-board-python-flask
-      dockerfile: frontend-react/Dockerfile
+      repository: jakepelter/message-board-frontend-react
+      dockerfile: message-board/frontend-react/Dockerfile
       containerRegistry: 'jakep-dockerhub'
       tags: $(Build.BuildId)
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: frontend-react/charts
+      pathToPublish: message-board/frontend-react/charts
       artifactName: 'drop'
