@@ -14,8 +14,14 @@ function App() {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_MESSAGE}`);
       const data = await response.json();
-      setMessages(data);
-      console.log('Messages fetched:', data);
+      const decodedData = data.map((message) => {
+        return {
+          ...message,
+          content: decodeURIComponent(message.content),
+        };
+      });
+      setMessages(decodedData);
+      console.log('Messages fetched:', decodedData);
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -23,12 +29,13 @@ function App() {
 
   const postMessage = async () => {
     try {
+      const encodedMessage = encodeURIComponent(newMessage); // Encode the newMessage
       const response = await fetch(`${process.env.REACT_APP_API_MESSAGE}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: newMessage }),
+        body: JSON.stringify({ content: encodedMessage }), // Use the encodedMessage in the request body
       });
       const data = await response.json();
       const newMessageData = {
