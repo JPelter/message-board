@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
-    <changeSet id="000_CREATE_MESSAGE_TABLE" author="JakePelter">
+    <changeSet id="000_CREATE_MESSAGE_TABLE" author="JakePelter" schemaName="messageboard">
         <sqlFile
             path="scripts/000_create_message_table.sql"
             relativeToChangelogFile="true"
@@ -8,7 +8,7 @@
         />
     </changeSet>
     <!-- NEEDED TO SUPPORT EMOJIs BEING PROPERLY STORED! -->
-    <changeSet id="001_ALTER_CONTENT_NVARCHAR" author="JakePelter">
+    <changeSet id="001_ALTER_CONTENT_NVARCHAR" author="JakePelter" schemaName="messageboard">
         <sqlFile
             path="scripts/001_alter_content_nvarchar.sql"
             relativeToChangelogFile="true"
