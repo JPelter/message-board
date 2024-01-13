@@ -49,20 +49,28 @@ function App() {
           label="New Message"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          multiline
+          maxRows={10}
+          inputProps={{ maxLength: 1000 }}
+          sx={{ margin: "10px", width: "80%", maxWidth: "600px"}}
         />
-        <Button variant="contained" color="primary" onClick={postMessage}>
-          Post Message
-        </Button>
-        {messages.map((message) => (
-          <Paper key={message.id} elevation={3} sx={{ p: 2, mt: 2 }}>
-            <div>
-              <strong>ID:</strong> {message.id}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button variant="contained" color="primary" onClick={postMessage} sx={{ margin: "10px" }}>
+            Post Message
+          </Button>
+        </div>
+        {[...messages].reverse().map((message) => (
+          <Paper key={message.id} elevation={3} sx={{ padding: "5px", margin: "10px" }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{padding: "1px", margin: "2px"}}>
+                <strong>{message.id}</strong> 
+              </div>
+              <div style={{padding: "1px", margin: "2px"}}>
+                <strong>{message.post_time}</strong> 
+              </div>
             </div>
-            <div>
-              <strong>Content:</strong> {message.content}
-            </div>
-            <div>
-              <strong>Post Time:</strong> {message.post_time}
+            <div style={{padding: "3px", margin: "6px"}}>
+                {message.content}
             </div>
           </Paper>
         ))}
@@ -70,5 +78,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
