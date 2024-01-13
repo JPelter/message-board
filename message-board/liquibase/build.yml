@@ -6,7 +6,7 @@ trigger:
     - main
   paths:
     include:
-    - python-flask-sqlserver/liquibase
+    - message-board/liquibase
 
 jobs:
 - job: Build
@@ -14,23 +14,26 @@ jobs:
   pool:
     name: Azure Pipelines
   steps:
+
   - task: Docker@2
     displayName: Build
     inputs:
       command: build
-      repository: jakepelter/python-flask-sqlserver-liquibase
-      dockerfile: python-flask-sqlserver/liquibase/Dockerfile
+      repository: jakepelter/message-board-liquibase
+      dockerfile: message-board/liquibase/Dockerfile
       tags: |
         $(Build.BuildId)
+        
   - task: Docker@2
     displayName: Push
     inputs:
       command: push
-      repository: jakepelter/python-flask-sqlserver-liquibase
+      repository: jakepelter/message-board-liquibase
       containerRegistry: 'jakep-dockerhub'
       tags: |
         $(Build.BuildId)
+
   - task: PublishBuildArtifacts@1
     inputs:
-      pathToPublish: python-flask-sqlserver/liquibase/charts
+      pathToPublish: message-board/liquibase/charts
       artifactName: 'drop'
