@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { TextField, Button, Paper } from '@mui/material';
+import Markdown from 'react-markdown';
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -76,8 +77,8 @@ function App() {
                 <strong>{message.post_time}</strong> 
               </div>
             </div>
-            <div style={{padding: "3px", margin: "6px"}}>
-                {message.content}
+            <div style={{ padding: "3px", margin: "6px", textAlign: "left" }}>
+              <Markdown>{message.content}</Markdown>
             </div>
           </Paper>
         ))}

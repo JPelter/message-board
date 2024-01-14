@@ -39,6 +39,7 @@ def get_messages():
 def create_message():
     app.logger.info('Someing POSTing!')
     try:
+        app.logger.debug(request.json['content'])
         new_message = MESSAGE(content=request.json['content'])
         db.session.add(new_message)
         db.session.commit()
