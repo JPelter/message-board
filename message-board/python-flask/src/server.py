@@ -9,8 +9,16 @@ import pyodbc
 from sqlalchemy.ext.automap import automap_base
 from waitress import serve
 
+
 app = Flask(__name__)
-app.logger.setLevel(logging.INFO)
+if environ.get('LOCAL') == "TRUE":
+    from flask_cors import CORS
+    app.logger.setLevel(logging.DEBUG)
+    CORS(app, supports_credentials=True)
+    app.config['CORS_HEADERS'] = 'Content-Type'
+else:
+    app.logger.setLevel(logging.INFO)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mssql+pyodbc://{environ['SQL_SERVER_USERNAME']}:{environ['SQL_SERVER_PASSWORD']}@{environ['SQL_SERVER_HOST']}/{environ['SQL_SERVER_DB']}?driver=ODBC+Driver+17+for+SQL+Server"
 db = SQLAlchemy(app)
 db_Base = automap_base()
@@ -20,7 +28,6 @@ with app.app_context():
     db_Base.prepare(db.engine)
 
 MESSAGE = db_Base.classes.MESSAGE
-
 
 @app.route('/api/message', methods=['GET'])
 def get_messages():
@@ -32,6 +39,7 @@ def get_messages():
 def create_message():
     app.logger.info('Someing POSTing!')
     try:
+        app.logger.debug(request.json['content'])
         new_message = MESSAGE(content=request.json['content'])
         db.session.add(new_message)
         db.session.commit()
