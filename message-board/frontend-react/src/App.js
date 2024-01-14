@@ -77,8 +77,16 @@ function App() {
                 <strong>{message.post_time}</strong> 
               </div>
             </div>
-            <div style={{ padding: "3px", margin: "6px", textAlign: "left" }}>
-              <Markdown>{message.content}</Markdown>
+            <div style={{ padding: "3px", margin: "6px", textAlign: "left"}}>
+              <Markdown
+                components={{
+                  img: ({ node, ...props }) => (
+                    <img {...props} style={{ maxHeight: "200px" }} />
+                  ),
+                }}
+              >
+                {message.content}
+              </Markdown>
             </div>
           </Paper>
         ))}
