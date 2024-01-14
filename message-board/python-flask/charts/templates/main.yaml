@@ -64,10 +64,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - message-board.pelter.net
+    - discuss.pelter.net
     secretName: {{ .Release.Name }}-tls
   rules:
-  - host: message-board.pelter.net
+  - host: discuss.pelter.net
     http:
       paths:
       - pathType: Prefix
