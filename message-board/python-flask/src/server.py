@@ -4,7 +4,6 @@ from os import environ
 
 # EXT IMPORTS
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import pyodbc
 from sqlalchemy.ext.automap import automap_base
@@ -13,6 +12,7 @@ from waitress import serve
 
 app = Flask(__name__)
 if environ.get('LOCAL') == "TRUE":
+    from flask_cors import CORS
     app.logger.setLevel(logging.DEBUG)
     CORS(app, supports_credentials=True)
     app.config['CORS_HEADERS'] = 'Content-Type'
